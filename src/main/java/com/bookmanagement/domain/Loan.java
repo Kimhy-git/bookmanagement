@@ -23,7 +23,6 @@ public class Loan {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    @JsonBackReference
     private Book book;
 
     private LocalDateTime loanDate;

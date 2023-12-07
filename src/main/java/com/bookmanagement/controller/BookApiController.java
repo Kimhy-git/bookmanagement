@@ -1,6 +1,7 @@
 package com.bookmanagement.controller;
 
 import com.bookmanagement.domain.Book;
+import com.bookmanagement.dto.BookLoanResponse;
 import com.bookmanagement.dto.BookRequest;
 import com.bookmanagement.dto.BookResponse;
 import com.bookmanagement.service.BookService;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,5 +40,16 @@ public class BookApiController {
 
         return ResponseEntity.ok()
                 .body(updatedBook);
+    }
+
+    @GetMapping("/book/history/{id}")
+    public ResponseEntity<List<BookLoanResponse>> findBookLoan(@PathVariable Long id) {
+        List<BookLoanResponse> bookLoanResponses = bookService.findByBookIdIs(id)
+                .stream()
+                .map(BookLoanResponse::new)
+                .toList();
+
+        return ResponseEntity.ok()
+                .body(bookLoanResponses);
     }
 }

@@ -1,17 +1,22 @@
 package com.bookmanagement.service;
 
 import com.bookmanagement.domain.Book;
+import com.bookmanagement.domain.Loan;
 import com.bookmanagement.dto.BookRequest;
 import com.bookmanagement.repository.BookRepository;
+import com.bookmanagement.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final LoanRepository loanRepository;
 
     public Book save(BookRequest request) {
         return bookRepository.save(Book.builder()
@@ -26,6 +31,10 @@ public class BookService {
     public Book findById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: "+id));
+    }
+
+    public List<Loan> findByBookIdIs(Long id) {
+        return loanRepository.findByBookIdIs(id);
     }
 
     @Transactional

@@ -13,7 +13,6 @@ public class BookResponse {
     private String publisher;
     private String isbn;
     private boolean loan_status;
-    private List<Loan> loan_list;
 
     public BookResponse(Book book) {
         this.title = book.getTitle();
@@ -21,6 +20,5 @@ public class BookResponse {
         this.publisher = book.getPublisher();
         this.isbn = book.getIsbn();
         this.loan_status = book.isLoan_status();
-        this.loan_list = book.getLoan_list();
     }
 }
