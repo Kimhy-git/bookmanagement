@@ -17,6 +17,7 @@ public class BookService {
         return bookRepository.save(Book.builder()
                         .title(request.getTitle())
                         .author(request.getAuthor())
+                        .publisher(request.getPublisher())
                         .isbn(request.getIsbn())
                         .loan_status(false)
                         .build());

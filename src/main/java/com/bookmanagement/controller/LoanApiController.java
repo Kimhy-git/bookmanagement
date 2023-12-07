@@ -1,5 +1,6 @@
 package com.bookmanagement.controller;
 
+import com.bookmanagement.domain.Book;
 import com.bookmanagement.domain.Loan;
 import com.bookmanagement.dto.LoanAddRequest;
 import com.bookmanagement.service.BookService;
@@ -11,15 +12,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class LoanController {
+public class LoanApiController {
 
     private final LoanService loanService;
     private final BookService bookService;
 
     @PostMapping("/loan")
     public ResponseEntity<Loan> addLoan(@RequestBody LoanAddRequest request) {
+        Book book = bookService.findById(request.getBookId());
+        if(book.isLoan_status()) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .build();
+        }
+
         Loan loan = loanService.save(request);
-        bookService.updateStatusLoan(loan.getBook().getId());
+        bookService.updateStatusLoan(request.getBookId());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(loan);

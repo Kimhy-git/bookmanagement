@@ -1,13 +1,16 @@
 package com.bookmanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Loan {
 
     @Id @GeneratedValue
@@ -20,6 +23,7 @@ public class Loan {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
+    @JsonBackReference
     private Book book;
 
     private LocalDateTime loanDate;
