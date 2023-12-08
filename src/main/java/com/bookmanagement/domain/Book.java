@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class Book {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     private Long id;
     private String title;

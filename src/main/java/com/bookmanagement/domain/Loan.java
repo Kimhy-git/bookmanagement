@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Loan {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_id")
     private Long id;
 
