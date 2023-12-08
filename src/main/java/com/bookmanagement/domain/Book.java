@@ -1,13 +1,17 @@
 package com.bookmanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Book {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +22,6 @@ public class Book {
     private String publisher;
     private String isbn;
     private boolean loan_status;
-
-    @OneToMany(mappedBy = "book")
-    private List<Loan> loan_list;
 
     @Builder
     public Book(String title, String author, String publisher, String isbn, boolean loan_status) {
