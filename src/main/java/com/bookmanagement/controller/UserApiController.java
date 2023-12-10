@@ -1,7 +1,6 @@
 package com.bookmanagement.controller;
 
 import com.bookmanagement.domain.User;
-import com.bookmanagement.dto.UserCancelRequest;
 import com.bookmanagement.dto.UserJoinRequest;
 import com.bookmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +15,16 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/user")
-    public ResponseEntity<User> joinUser(@RequestBody UserJoinRequest request) {
-        User user = userService.save(request);
+    public ResponseEntity<Void> joinUser(@RequestBody UserJoinRequest request) {
+        userService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(user);
+                .build();
     }
 
-    @DeleteMapping("/user")
-    public ResponseEntity<Void> cancelUser(@RequestBody UserCancelRequest request) {
-        userService.cancelById(request.getId());
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> cancelUser(@PathVariable long id) {
+        userService.cancelById(id);
 
         return ResponseEntity.ok()
                 .build();

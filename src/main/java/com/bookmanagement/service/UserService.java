@@ -14,12 +14,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User save(UserJoinRequest dto) {
-        return userRepository.save(User.builder()
-                        .email(dto.getEmail())
-                        .password(dto.getPassword())
-                        .status(true)
-                        .build());
+    public void save(UserJoinRequest dto) {
+        userRepository.save(User.builder()
+                    .email(dto.getEmail())
+                    .password(dto.getPassword())
+                    .status(true)
+                    .build());
     }
 
     public User findById(Long userId) {
